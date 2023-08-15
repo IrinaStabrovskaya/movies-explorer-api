@@ -17,8 +17,12 @@ const { JWT_SECRET } = process.env;
 // запрос своих данных
 const getUser = (req, res, next) => {
   User.findOne({ _id: req.user._id })
+    .orFail(() => new Error('NotValidId'))
     .then((userData) => res.send(userData))
     .catch((err) => {
+      if (err.message === 'NotValidId') {
+        return next(new NotFound('Пользователь не найден'));
+      }
       if (err instanceof mongoose.Error.CastError) {
         return next(new BadRequest('Переданы некорректные данные при поиске пользователя'));
       }
@@ -45,6 +49,9 @@ const updateUser = (req, res, next) => {
       }
       if (err instanceof mongoose.Error.ValidationError) {
         return next(new BadRequest('Переданы некорректные данные при обновлении профиля'));
+      }
+      if (err.code === 11000) {
+        return next(new Conflict('Пользователь с таким email уже существует'));
       }
       return next(err);
     });

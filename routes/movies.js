@@ -11,12 +11,10 @@ const {
   deleteMovie,
 } = require('../controllers/movies');
 
-const auth = require('../middlewares/auth');
-
 router.get('/', getMovies);
 
-router.post('/', auth, validateSaveMovie, saveMovie);
+router.post('/', validateSaveMovie, saveMovie);
 
-router.delete('/:_id', auth, validateDeleteMovie, deleteMovie);
+router.delete('/:_id', validateDeleteMovie, deleteMovie);
 
 module.exports = router;

@@ -12,7 +12,7 @@ const {
 router.use('/signup', validateCreateUser, createUser);
 router.use('/signin', validateLogin, login);
 router.use('/users', auth, userRoutes);
-router.use('/movies', movieRoutes);
+router.use('/movies', auth, movieRoutes);
 router.use('/*', auth, (req, res, next) => next(new NotFound('Страница не найдена')));
 
 module.exports = router;

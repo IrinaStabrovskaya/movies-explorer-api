@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const isURL = require('validator/lib/isURL');
 
+const API_FILMS_URL = 'https://api.nomoreparties.co';
+
 const movieSchema = new mongoose.Schema(
   {
     nameRU: {
@@ -42,7 +44,7 @@ const movieSchema = new mongoose.Schema(
       type: String,
       required: true,
       validate: {
-        validator: (link) => isURL(link),
+        validator: (link) => isURL(`${API_FILMS_URL}${link}`),
         message: 'Некорректная ссылка',
       },
     },
@@ -51,7 +53,7 @@ const movieSchema = new mongoose.Schema(
       type: String,
       required: true,
       validate: {
-        validator: (link) => isURL(link),
+        validator: (link) => isURL(`${API_FILMS_URL}${link}`),
         message: 'Некорректная ссылка',
       },
     },

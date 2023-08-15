@@ -23,7 +23,8 @@ const saveMovie = (req, res, next) => {
     duration,
     year,
     description,
-    thumbnail = `${API_FILMS_URL}${req.body.image.formats.thumbnail.url}`,
+    image,
+    thumbnail,
     trailerLink,
     nameRU,
     nameEN,
@@ -37,11 +38,11 @@ const saveMovie = (req, res, next) => {
     duration,
     year,
     description,
-    image: `${API_FILMS_URL}${req.body.image.url}`,
+    image: `${API_FILMS_URL}${image}`,
     trailerLink,
     nameRU,
     nameEN,
-    thumbnail,
+    thumbnail: `${API_FILMS_URL}${thumbnail}`,
     owner: id,
     movieId,
   })
@@ -49,7 +50,7 @@ const saveMovie = (req, res, next) => {
     .catch((err) => {
       if (err instanceof mongoose.Error.ValidationError) {
         return next(
-          new BadRequest(`${err.message}`),
+          new BadRequest('Переданы некорректные данные при сохранении фильма'),
         );
       }
       return next(err);
