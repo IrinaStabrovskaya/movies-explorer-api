@@ -6,7 +6,7 @@ const { celebrate, Joi } = require('celebrate');
 const urlPattern = /^(https?):\/\/(www\.)?([a-z0-9-]{2,})\.([a-z0-9-]{2,})\.?([a-z0-9-]{2,})?\/?(([-._~:\/?#[\]@!$&'()*+,;=a-zA-Z0-9]*)?)#?$/;
 
 // eslint-disable-next-line max-len, no-useless-escape
-const urlPatternCut = /^\/([a-z0-9-]{2,})\/?(([-._~:\/?#[\]@!$&'()*+,;=a-zA-Z0-9]*)?)#?$/;
+// const urlPatternCut = /^\/([a-z0-9-]{2,})\/?(([-._~:\/?#[\]@!$&'()*+,;=a-zA-Z0-9]*)?)#?$/;
 
 const validateCreateUser = celebrate({
   body: Joi.object().keys({
@@ -37,11 +37,11 @@ const validateSaveMovie = celebrate({
     duration: Joi.number().required(),
     year: Joi.string().required(),
     description: Joi.string().required(),
-    image: Joi.string().pattern(urlPatternCut).required(),
+    image: Joi.string().pattern(urlPattern).required(),
     trailerLink: Joi.string().pattern(urlPattern).required(),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
-    thumbnail: Joi.string().pattern(urlPatternCut).required(),
+    thumbnail: Joi.string().pattern(urlPattern).required(),
     movieId: Joi.number().required(),
   }).unknown(true),
 });
