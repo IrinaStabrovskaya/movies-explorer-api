@@ -39,7 +39,7 @@ const saveMovie = (req, res, next) => {
     duration,
     year,
     description,
-    image: `${API_FILMS_URL}${image}`,
+    image: `${image}`,
     trailerLink,
     nameRU,
     nameEN,
