@@ -47,6 +47,9 @@ const updateUser = (req, res, next) => {
       if (err.message === 'NotValidId') {
         return next(new NotFound('Пользователь не найден'));
       }
+      if (err.message === 'Validation failed') {
+        return next(new BadRequest('Переданы некорректные данные при обновлении профиля'));
+      }
       if (err instanceof mongoose.Error.ValidationError) {
         return next(new BadRequest('Переданы некорректные данные при обновлении профиля'));
       }
@@ -64,6 +67,7 @@ const createUser = (req, res, next) => {
   } = req.body;
 
   return bcrypt.hash(password, SALT_ROUNDS)
+
     .then((hash) => User.create({
       name,
       email,
